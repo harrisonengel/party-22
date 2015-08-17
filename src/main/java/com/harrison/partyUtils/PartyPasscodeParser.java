@@ -8,8 +8,13 @@ public class PartyPasscodeParser {
 
 	private String username;
 	private String password;
+	private String consumerKey;
+	private String secretKey;
+	private String authToken;
+	private String authSecretToken;
 	
 	public PartyPasscodeParser(String filepath){
+		System.out.println(filepath);
 		File passFile = new File(filepath);
 		try{
 			parseFile(passFile);
@@ -30,9 +35,34 @@ public class PartyPasscodeParser {
 	private void parseFile(File passFile) throws FileNotFoundException{
 		Scanner inScanner = new Scanner(passFile);
 		String usernameLine = inScanner.nextLine();	
-		this.username = usernameLine.substring(usernameLine.indexOf("username:"));
+		this.username = usernameLine.substring(usernameLine.indexOf(":") + 1);
 		String passwordLine = inScanner.nextLine();
-		this.password = passwordLine.substring(passwordLine.indexOf("password:"));
+		this.password = passwordLine.substring(passwordLine.indexOf(":") + 1);
+		String keyLine = inScanner.nextLine();
+		this.consumerKey = keyLine.substring(keyLine.indexOf(":") + 1);
+		String secretLine = inScanner.nextLine();
+		this.secretKey = secretLine.substring(secretLine.indexOf(":") + 1);
+		String authLine = inScanner.nextLine();
+		this.authToken = authLine.substring(authLine.indexOf(":") + 1);
+		String authSecretLine = inScanner.nextLine();
+		this.authSecretToken = authSecretLine.substring(authSecretLine.indexOf(":") + 1);
+		
 		inScanner.close();
+	}
+
+	public String getAuthToken() {
+		return authToken;
+	}
+
+	public String getAuthSecretToken() {
+		return authSecretToken;
+	}
+
+	public String getConsumerKey() {
+		return consumerKey;
+	}
+	
+	public String getSecretKey(){
+		return secretKey;
 	}
 }
