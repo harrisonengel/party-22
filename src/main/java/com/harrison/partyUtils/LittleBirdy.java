@@ -1,18 +1,24 @@
 package com.harrison.partyUtils;
 
+import twitter4j.HashtagEntity;
 import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
 import twitter4j.StatusListener;
 
 public class LittleBirdy implements StatusListener {
+	
+	private static final String PARTY_TAG = "TestParty";
 
-	public LittleBirdy(){
+	public LittleBirdy(PartyPasscodeParser parser){
 		
 	}
 	
 	public void onStatus(Status status) {
-        System.out.println(status.getUser().getName() + " : " + status.getText());
+        HashtagEntity[] hashtags = status.getHashtagEntities();
+        if(containsPartyHash(hashtags)){
+        	System.out.println("PARTY TIME!: " + status.getText());
+        }
     }
 	
     public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {}
@@ -35,4 +41,11 @@ public class LittleBirdy implements StatusListener {
 		
 	}
     
+	private boolean containsPartyHash(HashtagEntity[] hashtags){
+		for(int i=0; i<hashtags.length; i++){
+			if((hashtags[i].getText()).equals(PARTY_TAG))
+				return true;
+		}
+		return false;
+	}
 }
