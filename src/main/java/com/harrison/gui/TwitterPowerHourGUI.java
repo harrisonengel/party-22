@@ -33,7 +33,7 @@ public class TwitterPowerHourGUI implements ActionListener {
 				}
 			}
 		});
-	}
+	} //test for myself
 	
 	public void actionPerformed(ActionEvent e) {
 	    String cmd = e.getActionCommand();
