@@ -1,5 +1,11 @@
 package com.harrison.partyUtils;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
 import twitter4j.HashtagEntity;
 import twitter4j.StallWarning;
 import twitter4j.Status;
@@ -17,7 +23,16 @@ public class LittleBirdy implements StatusListener {
 	public void onStatus(Status status) {
         HashtagEntity[] hashtags = status.getHashtagEntities();
         if(containsPartyHash(hashtags)){
-        	System.out.println("PARTY TIME!: " + status.getText());
+        	File textFile = new File("partyFile.txt");
+        	PrintWriter writer;
+			try {
+				writer = new PrintWriter("partyFile.txt", "UTF-8");
+				System.out.println(status.getText());
+				writer.println(status.getText());
+				writer.close();
+			} catch (FileNotFoundException | UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
         }
     }
 	
