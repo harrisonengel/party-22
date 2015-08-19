@@ -1,6 +1,5 @@
 package com.harrison.mainParty;
 
-
 import com.harrison.partyUtils.LittleBirdy;
 import com.harrison.partyUtils.PartyPasscodeParser;
 import twitter4j.Query;
@@ -24,18 +23,22 @@ public class LetsParty {
 		builder.setOAuthConsumerSecret(parser.getSecretKey());
 		builder.setOAuthAccessToken(parser.getAuthToken());
 		builder.setOAuthAccessTokenSecret(parser.getAuthSecretToken());
-		//TwitterStreamFactory factory = new TwitterStreamFactory(builder.build());
 		TwitterFactory factory = new TwitterFactory(builder.build());
 		Twitter twatter = factory.getInstance();
 		
 		String specialHash = "#TestParty";
 		Query query = new Query(specialHash);
 		try {
-			QueryResult result = twatter.search(query);
-			for(Status twat : result.getTweets()){
-				birdy.onStatus(twat);
+			while(true){
+				QueryResult result = twatter.search(query);
+				for(Status twat : result.getTweets()){
+					birdy.onStatus(twat);
+				}
+				Thread.sleep(10000);
 			}
 		} catch (TwitterException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		
