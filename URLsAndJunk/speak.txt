@@ -1,0 +1,3 @@
+"C:\Program Files (x86)\eSpeak\command_line\espeak.exe" -f "C:\Users\Steven\Desktop\speak.txt" -p 10 -s 100
+
+Here is another power hour. Get ready to drink in 3. 2. 1. Drink.
